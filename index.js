@@ -23,9 +23,18 @@ class SimpleDaemon {
 
         // EXTERNAL DAEMON
 
-        this._command = obj.command || DEFAULT_COMMAND;
-        this._mainScript = obj.mainScript || DEFAULT_MAIN_SCRIPT;
-        this._args = [ this._mainScript ];
+        if (obj.command) {
+            this._command = obj.command;
+            this._mainScript = obj.mainScript;
+        } else if (obj.mainScript) {
+            this._command = DEFAULT_COMMAND;
+            this._mainScript = obj.mainScript;
+        } else {
+            this._command = DEFAULT_COMMAND;
+            this._mainScript = DEFAULT_MAIN_SCRIPT;
+        }
+
+        this._args = this._mainScript ? [ this._mainScript ] : [];
 
         // if using the default main, then invoke the daemon process
         if (this._mainScript === DEFAULT_MAIN_SCRIPT) {
