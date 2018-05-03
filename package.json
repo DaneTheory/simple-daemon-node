@@ -1,0 +1,26 @@
+{
+  "name": "@mjpitz/simple-daemon-node",
+  "version": "0.0.1",
+  "description": "Simplistic wrapper that facilitates writing long lived NodeJS daemons with lifecycle management",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjpitz/simple-daemon-node.git"
+  },
+  "author": "Jaye Pitzeruse",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mjpitz/simple-daemon-node/issues"
+  },
+  "homepage": "https://github.com/mjpitz/simple-daemon-node#readme",
+  "dependencies": {
+    "ps-node": "^0.1.6",
+    "user-startup": "^0.2.2"
+  },
+  "devDependencies": {
+    "jest": "^22.4.3"
+  }
+}
