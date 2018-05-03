@@ -5,6 +5,7 @@ const ps = require('ps-node');
 
 const DEFAULT_COMMAND = process.argv[0];
 const DEFAULT_MAIN_SCRIPT = process.argv[1];
+const args = process.argv.slice(2);
 
 class SimpleDaemon {
     constructor(obj) {
@@ -90,6 +91,20 @@ class SimpleDaemon {
         return Promise.resolve(this._version);
     }
 
+    daemon() {
+        if (this._daemon === undefined) {
+            return Promise.reject(new Error('No daemon function specified'));
+        }
+
+        try {
+            this._daemon(args);
+            return Promise.resolve();
+        } catch (e) {
+            this.stop();
+            return Promise.reject(e);
+        }
+    }
+
     run() {
         this._run().then((message) => {
             if (message) {
@@ -99,10 +114,8 @@ class SimpleDaemon {
     }
 
     _run() {
-        const args = process.argv.slice(2);
-
         if (args.length < 1) {
-            return Promise.reject('Available commands: restart|start|status|stop|version');
+            return Promise.reject(new Error('Available commands: restart|start|status|stop|version'));
         }
 
         switch (args[0]) {
@@ -117,19 +130,9 @@ class SimpleDaemon {
             case 'version':
                 return this.version();
             case 'daemon':
-                if (!this._daemon) {
-                    return Promise.reject('No daemon function specified')
-                }
-
-                try {
-                    this._daemon(args);
-                    return Promise.resolve();
-                } catch (e) {
-                    this.stop();
-                    return Promise.reject(e);
-                }
+                return this.daemon();
             default:
-                return Promise.reject('Unknown command: ' + args[0]);
+                return Promise.reject(new Error('Unknown command: ' + args[0]));
         }
     }
 }

@@ -3,12 +3,12 @@ const path = require('path');
 
 
 const daemon = new SimpleDaemon({
-    name: 'simple-daemon-node-example-simple',
+    name: 'simple-daemon-node-example-embedded',
     daemon: (args) => {
         // this code is only executed from the background daemon
         require('./daemon-script');
     },
-    logFile: path.join(process.cwd(), 'simple-daemon-node-example-simple.log')
+    logFile: path.join(process.cwd(), 'simple-daemon-node-example-embedded.log')
 });
 
 if (require.main === module) {
