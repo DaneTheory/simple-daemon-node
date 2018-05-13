@@ -1,6 +1,6 @@
 {
   "name": "@mjpitz/simple-daemon-node",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simplistic wrapper that facilitates writing long lived NodeJS daemons with lifecycle management",
   "main": "index.js",
   "scripts": {
